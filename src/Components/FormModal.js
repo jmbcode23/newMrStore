@@ -1,43 +1,5 @@
 import { useState } from "react";
-import "./styles/login.css"
-import { Form, Button, Checkbox, DatePicker, Input, Select, Modal, Space, Typography } from "antd";
-
-
-
-function LandingPage() {
-
-    const [open, setOpen] = useState(false);
-    const showModal = () => {
-        setOpen(true);
-    };
-    const handleOk = () => {
-        setTimeout(() => {
-            setOpen(false);
-        }, 2000);
-    };
-    const handleCancel = () => {
-        setOpen(false);
-    };
-
-    return (
-        <div>
-            <Button type="primary" onClick={showModal}>
-                Click to Register
-            </Button>
-            <Modal
-                title="Registration Form"
-                open={open}
-                onOk={handleOk}
-                onCancel={handleCancel}
-                footer={null}
-                styles={{ maxHeight: 300 }}
-            >
-                <RegistrationForm />
-            </Modal>
-
-        </div>
-    )
-};
+import { Button, Form, DatePicker, Checkbox, Select, Input } from "antd";
 
 function RegistrationForm() {
     const [formArray, setFormArray] = useState([]);
@@ -49,9 +11,7 @@ function RegistrationForm() {
 
     const onFinish = (values) => {
         const keys = Object.keys(values);
-        // const newValues = {
-        //     [keys[0]]: { [keys[0]]: values[keys[0]] },
-        // };
+       
         console.log('My name is ', values[keys[0]]);
         const updatedArray = {fullName: values[keys[0]]}
         setFormArray([...formArray, updatedArray]);
@@ -198,6 +158,6 @@ function RegistrationForm() {
         </div>
 
     )
-}
+};
 
-export default LandingPage;
+export default RegistrationForm;

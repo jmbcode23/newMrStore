@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { getAllProducts, getProductsByCategory } from "./Api";
 import { useParams } from "react-router-dom";
 import AddToCartButton from "./Components/AddToCartButton";
-import LandingPage from "./LandingPage";
 
 function Products() {
 
@@ -11,7 +10,6 @@ function Products() {
     const param = useParams();
     const [items, setItems] = useState([]);
     const [sortOrder, setSortOrder] = useState("az");
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
         setLoading(true);
@@ -43,7 +41,7 @@ function Products() {
 
     return (
         <>
-        {isLoggedIn ? <LandingPage /> : <div className="productsContainer">
+        <div className="productsContainer">
                 <div>
                     <Typography.Text>View Items Sorted By: </Typography.Text>
                     <Select
@@ -120,7 +118,7 @@ function Products() {
                     }}
                     dataSource={getSortedItems()}
                 ></List>
-            </div>}
+            </div>
             
         </>
     );
