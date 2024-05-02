@@ -99,7 +99,8 @@ function AppCart() {
                     setCartDrawerOpen(false);
                 }}
                 title="Your Cart"
-                contentWrapperStyle={{ width: 500 }}
+                size="large"
+                
             >
                 <Table
                     pagination={false}

@@ -18,16 +18,16 @@ function ContactUs() {
         messageApi.open({
             key,
             type: 'loading',
-            content: 'Loading...',
+            content: 'sending...',
         });
         setTimeout(() => {
             messageApi.open({
                 key,
                 type: 'success',
-                content: 'Loaded!',
+                content: 'message sent successfully!',
                 duration: 2,
             });
-        }, 1000);
+        }, 2000);
         contactForm.resetFields();
     }
 
@@ -49,6 +49,7 @@ function ContactUs() {
 
     return (
         <div className="App">
+            {contextHolder}
             <header className="App-header">
                 <Form
                     form={contactForm}
