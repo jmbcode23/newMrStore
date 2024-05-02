@@ -43,7 +43,7 @@ function Products() {
         <>
         <div className="productsContainer">
                 <div>
-                    <Typography.Text>View Items Sorted By: </Typography.Text>
+                    <Typography.Text>Filter: </Typography.Text>
                     <Select
                         onChange={(value) => {
                             setSortOrder(value);
@@ -71,17 +71,18 @@ function Products() {
                 </div>
                 <List
                     loading={loading}
-                    grid={{ column: 3 }}
+                    grid={{ column: 4 }}
                     renderItem={(product, index) => {
                         return (
                             <Badge.Ribbon
                                 className="itemCardBadge"
                                 text={`${product.discountPercentage}% Off`}
-                                color="pink"
+                                color="#fe2712"
                             >
                                 <Card
                                     className="itemCard"
-                                    title={product.title}
+                                    hoverable
+                                    title={false}
                                     key={index}
                                     cover={
                                         <Image className="itemCardImage" src={product.thumbnail} />
@@ -94,13 +95,10 @@ function Products() {
                                     <Card.Meta
                                         title={
                                             <Typography.Paragraph>
+                                                <p>{product.title}</p>
                                                 Price: ${product.price}{" "}
                                                 <Typography.Text delete type="danger">
-                                                    $
-                                                    {parseFloat(
-                                                        product.price +
-                                                        (product.price * product.discountPercentage) / 100
-                                                    ).toFixed(2)}
+                                                    ${parseFloat(product.price + (product.price * product.discountPercentage) / 100).toFixed(2)}
                                                 </Typography.Text>
                                             </Typography.Paragraph>
                                         }

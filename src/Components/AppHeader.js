@@ -1,5 +1,5 @@
 import { HomeFilled } from "@ant-design/icons";
-import { Menu, Typography } from "antd";
+import { Menu, Typography, ConfigProvider } from "antd";
 import { useNavigate } from "react-router-dom";
 import AppCart from "./AppCart";
 
@@ -58,10 +58,6 @@ function AppHeader() {
             label: "Fragrances",
             key: "fragrances",
         },
-        {
-            label: "Contact us",
-            key: "contact",
-        }
     ]
 
     const navigate = useNavigate();
@@ -73,13 +69,26 @@ function AppHeader() {
     return (
 
         <div className="appHeader">
-            <Menu
-                className="appMenu"
-                onClick={onMenuClick}
-                mode="horizontal"
-                items={items}
-            />
-            <Typography.Title>MrStore</Typography.Title>
+            <ConfigProvider
+                theme={{
+                    components: {
+                        Menu: {
+                            activeBarHeight:1,
+                            itemColor:"#0077B6",
+
+                        },
+                    },
+                }}
+            >
+                <Menu
+                    className="appMenu"
+                    onClick={onMenuClick}
+                    mode="horizontal"
+                    items={items}
+                />
+            </ConfigProvider>
+
+            <Typography.Title italic={true}>MrStore</Typography.Title>
             <AppCart />
         </div>
     );

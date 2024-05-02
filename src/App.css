@@ -9,6 +9,7 @@
   justify-content: space-between;
   align-items: center;
   box-shadow: 1px 2px 2px #00000033;
+  background-color: #CAF0F8;
 }
 
 .soppingCartIcon {
@@ -23,6 +24,7 @@
 
 .appMenu {
   border: none;
+  background-color: #CAF0F8;
 }
 
 .pageContent {

@@ -17,7 +17,9 @@ import {
     Typography,
 } from "antd";
 import { useSelector } from "react-redux";
-import RegistrationForm from "./FormModal";
+import RegistrationForm from "./RegFormModal";
+import LoginForm from "./LogFormModal";
+import ContactUs from "./ContactUsForm";
 
 
 function AppCart() {
@@ -25,20 +27,11 @@ function AppCart() {
     const [checkoutDrawerOpen, setCheckoutDrawerOpen] = useState(false);
     const [cartItems, setCartItems] = useState([]);
     const count = useSelector((state) => state.counter.value);
-    const [open, setOpen] = useState(false);
-    const showModal = () => {
-        setOpen(true);
-    };
-    const handleOk = () => {
-        setTimeout(() => {
-            setOpen(false);
-        }, 2000);
-    };
-    const handleCancel = () => {
-        setOpen(false);
-    };
+    const [modal1Open, setModal1Open] = useState(false);
+    const [modal2Open, setModal2Open] = useState(false);
+    const [modal3Open, setModal3Open] = useState(false);
 
-    
+
     useEffect(() => {
         getCart().then((res) => {
             setCartItems(res.products);
@@ -53,16 +46,42 @@ function AppCart() {
 
     return (
         <div>
-            <Button type="primary" onClick={showModal}>Sign up</Button>
+            <Button ghost style={{ marginRight: 10 }} type="primary" onClick={() => setModal3Open(true)}>Contact us</Button>
+            <Modal
+                title="Contact form"
+                centered
+                open={modal3Open}
+                onOk={() => setModal3Open(false)}
+                onCancel={() => setModal3Open(false)}
+                footer={null}
+                styles={{ maxHeight: 300 }}
+            >
+                <ContactUs />
+            </Modal>
+
+            <Button ghost style={{ marginRight: 10 }} type="primary" onClick={() => setModal1Open(true)}>Register</Button>
             <Modal
                 title="Registration Form"
-                open={open}
-                onOk={handleOk}
-                onCancel={handleCancel}
+                centered
+                open={modal1Open}
+                onOk={() => setModal1Open(false)}
+                onCancel={() => setModal1Open(false)}
                 footer={null}
                 styles={{ maxHeight: 300 }}
             >
                 <RegistrationForm />
+            </Modal>
+            <Button ghost style={{ marginRight: 10 }} type="primary" onClick={() => setModal2Open(true)}>Log in</Button>
+            <Modal
+                title="Login Form"
+                centered
+                open={modal2Open}
+                onOk={() => setModal2Open(false)}
+                onCancel={() => setModal2Open(false)}
+                footer={null}
+                styles={{ maxHeight: 300 }}
+            >
+                <LoginForm />
             </Modal>
             <Badge
                 onClick={() => {
@@ -72,6 +91,7 @@ function AppCart() {
                 title={false}
                 showZero
                 className="soppingCartIcon"
+                color="#023E8A"
             >
                 <ShoppingCartOutlined />
             </Badge>
