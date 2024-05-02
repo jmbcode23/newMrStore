@@ -1,4 +1,4 @@
-import { Badge, Card, Image, List, Rate, Typography, Select, } from "antd";
+import { Badge, Card, Image, List, Rate, Typography, Select, Radio } from "antd";
 import { useEffect, useState } from "react";
 import { getAllProducts, getProductsByCategory } from "./Api";
 import { useParams } from "react-router-dom";
@@ -10,6 +10,7 @@ function Products() {
     const param = useParams();
     const [items, setItems] = useState([]);
     const [sortOrder, setSortOrder] = useState("az");
+    
 
     useEffect(() => {
         setLoading(true);
@@ -41,33 +42,20 @@ function Products() {
 
     return (
         <>
-        <div className="productsContainer">
+            <div className="productsContainer">
                 <div>
                     <Typography.Text>Filter: </Typography.Text>
-                    <Select
-                        onChange={(value) => {
-                            setSortOrder(value);
+                    <Radio.Group
+                        optionType="button"
+                        onChange={(e, value) => {
+                            setSortOrder(e.target.value);
                         }}
-                        defaultValue={"az"}
-                        options={[
-                            {
-                                label: "Alphabetically a-z",
-                                value: "az",
-                            },
-                            {
-                                label: "Alphabetically z-a",
-                                value: "za",
-                            },
-                            {
-                                label: "Price Low to High",
-                                value: "lowHigh",
-                            },
-                            {
-                                label: "Price High to Low",
-                                value: "highLow",
-                            },
-                        ]}
-                    ></Select>
+                    >
+                        <Radio value="az"> alphabetically a to z</Radio>
+                        <Radio value="za"> alphabetically z to a</Radio>
+                        <Radio value="lowHigh"> Price low to high</Radio>
+                        <Radio value="highLow"> Price high to low</Radio>
+                    </Radio.Group>
                 </div>
                 <List
                     loading={loading}
@@ -76,7 +64,7 @@ function Products() {
                         return (
                             <Badge.Ribbon
                                 className="itemCardBadge"
-                                text={`${product.discountPercentage}% Off`}
+                                text={`- ${Math.floor(product.discountPercentage)}%`}
                                 color="#fe2712"
                             >
                                 <Card
@@ -117,7 +105,7 @@ function Products() {
                     dataSource={getSortedItems()}
                 ></List>
             </div>
-            
+
         </>
     );
 }

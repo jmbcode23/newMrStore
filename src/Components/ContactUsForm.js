@@ -1,8 +1,12 @@
 import { useState } from "react";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 
 function ContactUs() {
     const [formArray, setFormArray] = useState([]);
+    const [contactForm] = Form.useForm();
+    const [messageApi, contextHolder] = message.useMessage();
+    const key = 'updatable';
+
 
     const onFinish = (values) => {
         const keys = Object.keys(values);
@@ -11,13 +15,43 @@ function ContactUs() {
         const updatedArray = { name: values[keys[0]], email: values[keys[1]], message: values[keys[2]] }
         setFormArray([...formArray, updatedArray]);
         console.log(formArray);
+        messageApi.open({
+            key,
+            type: 'loading',
+            content: 'Loading...',
+        });
+        setTimeout(() => {
+            messageApi.open({
+                key,
+                type: 'success',
+                content: 'Loaded!',
+                duration: 2,
+            });
+        }, 1000);
+        contactForm.resetFields();
     }
+
+    // const openMessage = () => {
+    //     messageApi.open({
+    //         key,
+    //         type: 'loading',
+    //         content: 'Loading...',
+    //     });
+    //     setTimeout(() => {
+    //         messageApi.open({
+    //             key,
+    //             type: 'success',
+    //             content: 'Loaded!',
+    //             duration: 2,
+    //         });
+    //     }, 1000);
+    // };
 
     return (
         <div className="App">
             <header className="App-header">
                 <Form
-
+                    form={contactForm}
                     labelCol={{ span: 10 }}
                     wrapperCol={{ span: 14 }}
                     onFinish={onFinish}
@@ -35,7 +69,7 @@ function ContactUs() {
                         ]}
                         hasFeedback
                     >
-                        <Input placeholder="type your name here"/>
+                        <Input placeholder="type your name here" />
                     </Form.Item>
 
                     <Form.Item
