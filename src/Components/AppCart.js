@@ -35,6 +35,8 @@ function AppCart() {
             setCartItems(res.products);
         });
     }, []);
+
+    
     const onConfirmOrder = (values) => {
         console.log({ values });
         setCartDrawerOpen(false);

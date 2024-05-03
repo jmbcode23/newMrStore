@@ -1,4 +1,4 @@
-import { Badge, Card, Image, List, Rate, Typography, Select, Radio } from "antd";
+import { Badge, Card, Image, List, Rate, Typography, Radio } from "antd";
 import { useEffect, useState } from "react";
 import { getAllProducts, getProductsByCategory } from "./Api";
 import { useParams } from "react-router-dom";
