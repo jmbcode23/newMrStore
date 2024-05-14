@@ -3,6 +3,7 @@ import "./App.css";
 import AppFooter from "./Components/AppFooter";
 import AppHeader from "./Components/AppHeader";
 import Products from "./Products";
+import ProductDetails from "./Components/ProductDetails";
 
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
         <div className="pageContent">
           <Routes>
             <Route path="/" element={<Products />}></Route>
-            <Route path="/:categoryId" element={<Products />}></Route>
+            <Route path="/:id" element={<ProductDetails />}></Route>
           </Routes>
         </div>
         <AppFooter />

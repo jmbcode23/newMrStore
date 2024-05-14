@@ -1,19 +1,19 @@
 import { Badge, Card, Image, List, Rate, Typography, Radio } from "antd";
 import { useEffect, useState } from "react";
 import { getAllProducts, getProductsByCategory } from "./Api";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import AddToCartButton from "./Components/AddToCartButton";
 
 function Products() {
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const param = useParams();
     const [items, setItems] = useState([]);
     const [sortOrder, setSortOrder] = useState("az");
     
 
     useEffect(() => {
-        setLoading(true);
+        // setLoading(true);
         (param?.categoryId ? getProductsByCategory(param.categoryId) : getAllProducts())
             .then((res) => {
                 setItems(res.products);
@@ -80,6 +80,7 @@ function Products() {
                                         <AddToCartButton item={product} />,
                                     ]}
                                 >
+                                    <Link to={`/${product.id}`}>
                                     <Card.Meta
                                         title={
                                             <Typography.Paragraph>
@@ -91,13 +92,16 @@ function Products() {
                                             </Typography.Paragraph>
                                         }
                                         description={
+                                            
                                             <Typography.Paragraph
                                                 ellipsis={{ rows: 2, expandable: true, symbol: "more" }}
                                             >
                                                 {product.description}
                                             </Typography.Paragraph>
+                                            
                                         }
                                     ></Card.Meta>
+                                    </Link>
                                 </Card>
                             </Badge.Ribbon>
                         );

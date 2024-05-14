@@ -14,7 +14,7 @@ import {
     Table,
     Typography,
 } from "antd";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import RegistrationForm from "./RegFormModal";
 import LoginForm from "./LogFormModal";
 import ContactUs from "./ContactUsForm";
@@ -24,17 +24,19 @@ function AppCart() {
     const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
     const [checkoutDrawerOpen, setCheckoutDrawerOpen] = useState(false);
     const [cartItems, setCartItems] = useState([]);
+    const disPatch = useDispatch()
+    const cartArray = useSelector((state) => state.cart.cartItems);
     const count = useSelector((state) => state.counter.value);
     const [modal1Open, setModal1Open] = useState(false);
     const [modal2Open, setModal2Open] = useState(false);
     const [modal3Open, setModal3Open] = useState(false);
 
 
-    useEffect(() => {
-        getCart().then((res) => {
-            setCartItems(res.products);
-        });
-    }, []);
+    // useEffect(() => {
+    //     getCart().then((res) => {
+    //         setCartItems(res.products);
+    //     });
+    // }, []);
 
     
     const onConfirmOrder = (values) => {
@@ -101,9 +103,9 @@ function AppCart() {
                     setCartDrawerOpen(false);
                 }}
                 title="Your Cart"
-                size="large"
-                
-            >
+                size="large"  
+            > 
+            {/*the dataIndex needs to match with the key in my array*/}
                 <Table
                     pagination={false}
                     columns={[
@@ -142,13 +144,13 @@ function AppCart() {
                         },
                         {
                             title: "Total",
-                            dataIndex: "total",
+                            dataIndex: "price",
                             render: (value) => {
                                 return <span>${value}</span>;
                             },
                         },
                     ]}
-                    dataSource={cartItems}
+                    dataSource={cartArray}
                     summary={(data) => {
                         const total = data.reduce((pre, current) => {
                             return pre + current.total;
